@@ -3,9 +3,9 @@ const {
   STATUS_IMAGE, STATUS_COLOR, STATUS_MESSAGE,
 } = require('./constants');
 
-const gitlabIconUrl = '';
-const gitBranchIconUrl = '';
-const gitBranchCircleIconUrl = '';
+const gitlabIconBWUrl = 'https://raw.githubusercontent.com/PB09/gitlab-google-chat-notify/main/assets/gitlab-black-logo.png';
+const gitBranchIconUrl = 'https://raw.githubusercontent.com/PB09/gitlab-google-chat-notify/main/assets/git-branch-128.png';
+const gitBranchCircleIconUrl = 'https://raw.githubusercontent.com/PB09/gitlab-google-chat-notify/main/assets/git-branch-128-circle.png';
 
 const createCardSection = webhookData => {
   const {
@@ -40,7 +40,7 @@ const createCardSection = webhookData => {
     {
       text: 'Go to repo',
       icon: {
-        iconUrl: gitlabIconUrl,
+        iconUrl: gitlabIconBWUrl,
       },
       onClick: {
         openLink: {
@@ -76,7 +76,7 @@ const createCardSection = webhookData => {
     {
       decoratedText: {
         startIcon: {
-          iconUrl: gitlabIconUrl,
+          iconUrl: gitlabIconBWUrl,
         },
         text: projectName,
       },

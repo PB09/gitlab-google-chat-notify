@@ -13,13 +13,13 @@ module.exports = {
     failed: '#FF0B0B',
   },
   STATUS_IMAGE: {
-    success: '',
-    canceled: '',
-    failed: '',
+    success: 'https://raw.githubusercontent.com/PB09/gitlab-google-chat-notify/main/assets/success-128.png',
+    canceled: 'https://raw.githubusercontent.com/PB09/gitlab-google-chat-notify/main/assets/canceled-128.png',
+    failed: 'https://raw.githubusercontent.com/PB09/gitlab-google-chat-notify/main/assets/failure-128.png',
   },
   STATUS_MESSAGE: {
     success: 'Run was successful',
-    canceled: 'Run was cancelled',
+    canceled: 'Run was canceled',
     failed: 'Run failed',
   },
   TRIGGER_STATUS: {
