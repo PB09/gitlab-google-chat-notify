@@ -1,0 +1,57 @@
+variables:
+  GITHUB_SECURED_REPO_URL: https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO_URL
+
+stages:
+  - sync
+  - build
+
+sync_github:
+  stage: sync
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+    # - git remote set-url origin $GITHUB_SECURED_REPO_URL
+    # - git push origin "$CI_COMMIT_BRANCH"
+  except:
+    - master
+    - main
+    - tags
+
+sync_github_prod:
+  stage: sync
+  when: manual
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+    - git remote set-url origin $GITHUB_SECURED_REPO_URL
+    - git push origin "$CI_COMMIT_BRANCH"
+  only:
+    - master
+    - main
+
+sync_github_tags:
+  stage: sync
+  script:
+    - git fetch --tags origin # Fetch all tags from remote
+    - TAG=$(git describe --tags)
+    - echo $TAG # Get the latest tagged commit
+    - git checkout $TAG # Checkout the tagged commit
+    - git remote set-url origin $GITHUB_SECURED_REPO_URL
+    - git push origin $TAG # Push the tagged commit to Bitbucket
+  only:
+    - tags
+
+build:
+  stage: build
+  script:
+    - echo "Testing Build Setup Success"
+
+build_fail:
+  stage: build
+  when: manual
+  script:
+    - echo "Testing Build Setup Fail"
+    - echo "Pausing for 3 minutes..."
+    - sleep 180 # 180 seconds = 3 minutes
+    - git remote set-url origin $GITHUB_SECURED_REPO_URL
+    - git push origin "$CI_COMMIT_BRANCH"
