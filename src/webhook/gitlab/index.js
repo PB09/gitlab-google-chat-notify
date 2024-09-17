@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 
-const { GCHAT_NOTIFY_URL_GITLAB } = require('../../config');
+const { GCHAT_NOTIFY_URL_GITLAB, GITLAB_SECRET_TOKEN } = require('../../config');
 const notifyGoogleChat = require('../../utils/notify-google-chat');
 const logger = require('../logger');
 
@@ -26,15 +26,25 @@ const createCardV2Body = webhookData => {
 const NOTIFY_GCHAT_STATUS = [BUILD_STATUS.FAILED, BUILD_STATUS.SUCCESS, BUILD_STATUS.CANCELED];
 
 const gitlabWebhookHandler = async (req, res) => {
-  const { body = {}, query = {}, logInfo = {} } = req;
+  const {
+    body = {}, query = {}, logInfo = {}, headers = {},
+  } = req;
+
   try {
     const {
       object_kind: webhookType,
       build_status: buildStatus,
     } = body;
 
+    const gitlabToken = headers['x-gitlab-token'];
+
+    if (GITLAB_SECRET_TOKEN && gitlabToken && GITLAB_SECRET_TOKEN !== gitlabToken) {
+      logger.error(`gitlabWebhookHandler > INVALID GITLAB TOKEN PASSED > RECEIVED TOKEN: ${gitlabToken}`, logInfo);
+      return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+
     if (webhookType !== 'build') {
-      logger.error(`gitlabWebhookHandler > RECEIVED INVALID WEBHOOK TYPE: ${webhookType}`);
+      logger.error(`gitlabWebhookHandler > RECEIVED INVALID WEBHOOK TYPE: ${webhookType}`, logInfo);
       return res.sendStatus(httpStatus.OK);
     }
 
