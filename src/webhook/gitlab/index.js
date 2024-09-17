@@ -50,9 +50,13 @@ const gitlabWebhookHandler = async (req, res) => {
 
     const { triggerStatus = TRIGGER_STATUS.ALWAYS } = query; // Default to always if not provided
 
+    logger.debug(`gitlabWebhookHandler > TRIGGER STATUS: ${triggerStatus}, BUILD STATUS: ${buildStatus}`, logInfo);
+
     const shouldNotify = (triggerStatus === TRIGGER_STATUS.ALWAYS) // ALWAYS TRIGGERING THE BUILD
                          || (triggerStatus === TRIGGER_STATUS.SUCCESS && buildStatus === BUILD_STATUS.SUCCESS)
                          || (triggerStatus === TRIGGER_STATUS.FAILED && buildStatus === BUILD_STATUS.FAILED);
+
+    logger.debug(`gitlabWebhookHandler > Should notify: ${shouldNotify}`, logInfo);
 
     if (shouldNotify && NOTIFY_GCHAT_STATUS.includes(buildStatus)) {
       const messageBody = createCardV2Body(body);
