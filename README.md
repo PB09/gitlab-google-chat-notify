@@ -8,6 +8,26 @@ This project enables you to send notifications to a Google Chat space when speci
 2. Access to your GitLab repository where pipeline notifications will be set up.
 3. Node.js installed (Refer to the runtime mentioned in `package.json`).
 
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone [invalid URL removed]
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd gitlab-google-chat-notify
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
 ## Setup Instructions
 
 ### 1. Create a Google Chat Webhook
