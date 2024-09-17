@@ -1,8 +1,8 @@
 {
   "name": "gitlab-google-chat-notify",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Send notifications to Google Chat via webhook integration from GitLab events.",
+  "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/",
     "lint": "esw --ext .json,.js src --color",
@@ -14,9 +14,16 @@
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "gitlab",
+    "google-chat",
+    "notifications",
+    "webhook",
+    "ci-cd",
+    "pipeline"
+  ],
+  "author": "Preet Bhatt <bhattpreet92@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
@@ -32,8 +39,8 @@
     "nodemon": "2.0.20"
   },
   "engines": {
-    "node": "20.11.1",
-    "npm": "10.2.4"
+    "node": ">=20.11.1",
+    "npm": ">=10.2.4"
   },
   "lint-staged": {
     "*.js": [
